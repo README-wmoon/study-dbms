@@ -1,0 +1,60 @@
+/* JOIN
+ * 
+ * 여러 테이블에 흩어져 있는 정보 중
+ * 사용자가 필요한 정보만 가져와서 가상의 테이블처럼 만들고 결과를 보여주는 것.
+ * 정규화를 통해 조회 테이블이 너무 많이 쪼개져 있으면 작업이 불편하기 때문에 (반정규화가 성능이 향상되는데 왜 JOIN을 써서 향상시킬까? 
+ * 																-> 정규화가 되있는 상황에서 설명해야된다. -> 한방쿼리를 통해 성능 향상 시킨다. -> 반정규화랑은 다름 생각하면 안됨)
+ * 입력, 수정, 삭제의 성능을 향상시키기 위해서 JOIN을 통해 합친 후 사용한다.
+ * 
+ * */
+
+/*EMP 테이블 사원번호로 DEPT 테이블의 지역 검색*/
+
+SELECT * FROM EMP;
+SELECT * FROM DEPT;
+
+SELECT ENAME,LOC 
+FROM DEPT D INNER JOIN EMP E 
+ON D.DEPTNO = E.DEPTNO;									/*실무에서는 INNER 보다는 OUTER를 많이 씀 LEFT OUTER JOIN*/
+
+/*PLAYER 테이블에서 송중국 선수가 속한 팀의 전화번호 검색하기*/
+SELECT TEL, PLAYER_NAME
+FROM TEAM T JOIN PLAYER P
+ON T.TEAM_ID = P.TEAM_ID
+AND PLAYER_NAME = '송종국';
+
+/*JOBS 테이블에서 JOB_ID로 직원들의 JOB_TITLE, EMAIL, 성, 이름 검색*/
+SELECT J.JOB_ID,JOB_TITLE, EMAIL, FIRST_NAME, LAST_NAME
+FROM JOBS J JOIN EMPLOYEES E 
+ON J.JOB_ID = E.JOB_ID;
+
+/*EMP 테이블의 SAL을 SALGRADE 테이블의 등급으로 나누기*/
+SELECT SALARY
+FROM EMPLOYEES E JOIN SALGRADE S 
+ON E.SALARY = S.GRADE;
+
+/*EMPLOYEES 테이블에서 HIREDATE가 2003~2005년까지인 사원의 정보와 부서명 검색*/
+SELECT HIRE_DATE 
+FROM EMPLOYEES E JOIN DEPARTMENTS D 
+ON E.MANAGER_ID = D.MANAGER_ID AND HIRE_DATE BETWEEN '2003-01-01' AND '2005-12-31';
+
+
+/*JOB_TITLE 중 'Manager'라는 문자열이 포함된 직업들의 평균 연봉을 JOB_TITLE별로 검색*/
+SELECT JOB_TITLE, SALARY
+FROM EMPLOYEES E JOIN JOBS J 
+ON E.JOB_ID = J.JOB_ID AND JOB_TITLE LIKE '%M______';
+
+
+/*EMP 테이블에서 ENAME에 L이 있는 사원들의 DNAME과 LOC 검색*/
+SELECT ENAME, LOC, DNAME
+FROM DEPT D JOIN EMP E 
+ON D.DEPTNO = E.DEPTNO AND ENAME LIKE '%L%';
+
+/*축구 선수들 중에서 각 팀별로 키가 가장 큰 선수들 전체 정보 검색*/
+SELECT * 
+FROM TEAM T JOIN PLAYER P 
+ON T.TEAM_ID = P.TEAM_ID 
+
+
+/*EMP 테이블에서 사원의 이름과 매니저 이름을 검색*/
+

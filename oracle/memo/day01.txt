@@ -1,0 +1,27 @@
+DB(Database)
+	데이터가 모여 있는 기지.
+	추상적인 용어
+
+DBMS(Database Management System)
+	DB를 관리할 수 있는 구체적인 체계(시스템).
+	Oracle, MariaDB, MySQL, MS-SQL, MongoDB, Mongoose, ...
+
+오라클 DBMS 버전
+	9 11 17 21 -> 무조건 홀수 버전 써야됨 -> 짝수는 snapshot이 있음 -> 만들어봤는데 한번 써봐 이런거기 떄문에 못씀. 이상하면 책임 안짐 (10 12 20) 
+	9i 11g 19c 21c
+
+	i : internet
+	g : grid
+	c : cloud		-> 이버전에서는 저런게 된다.	-> cloud가 "MSA" 때문에 뜸 -> ex) 배달의 민족 -> Micro Service Architect
+
+오라클 DBMS 설치 - 11g
+https://drive.google.com/file/d/1rM1Z7-mA6vjySBgwWLr3ZI883xiL27HN/view?usp=sharing
+
+cmd창 키고 -> sqlplus sys as sysdba 친다. 비밀번호 1234
+
+계정
+	sys    :  모든 권한
+	system :  계정 관리
+	일반계정  : 스키마 관리
+
+내일은 용어 테이블, 모델링 정규화 반정규화 반속성 이해(내일)

@@ -1,0 +1,64 @@
+MySQL
+   웹 사이트와 다양한 애플리케이션에서 사용되는 DBMS이다.
+   오라클은 관리 비용이 고가이지만 MySQL은 저가형 데이터베이스이다.
+   문법이 간결하고 쉬우며, 메모리 사용량이 현저히 낮아서 부담없이 사용 가능하다.
+
+MySQL 설치
+   1. 제어판에 mysql이 설치되어 있는 지 확인
+   2. cmd창 > mysql -u root -p > 1234(비밀번호)
+   
+MySQL 설치
+   https://dev.mysql.com/downloads/windows/installer/8.0.html
+   (mysql-installer-community-8.0.30.0.msi, 435.7M) 다운로드
+
+MySQL 드라이버 다운로드
+   https://dev.mysql.com/downloads/connector/j/
+   > archives 선택 > Platform Independent 선택
+         > .zip 다운로드
+------------------------------------------------
+
+MySQL 기초 문법
+	- 데이터베이스 생성
+		create database [데이터베이스명];
+	- 사용할 데이터베이스 선택
+		use [데이터베이스명];
+
+	- CRUD 작성
+			
+MySQL 자료형
+	- 정수
+		tinyint
+		smallint
+		mediumint
+		int <-- 이거 쓰세요	
+		bigint	
+
+	- 실수
+		decimal(m, d): m자리 정수, d자리 소수점으로 표현
+
+	- 날짜
+		date : 날짜
+		time : 시간
+		datetime : 날짜 + 시간
+
+	- 문자
+		char(m): 고정 길이 문자열(0~255)
+		varchar(m): 가변 길이 문자열(0~65535)
+		
+mysql 언더바 + 소문자
+
+
+
+------------------------------------
+마이쿼리 다시 삭제하고 깔 때
+
+
+c++ 다 날리고 다시 깔기
+
+c드라이브에 programDate 안에 mysql 실제 폴더도 날려주기
+
+shift delete 
+
+program files x86에도 mysql 파일 삭제
+
+program files 에도 mysql 파일 삭제

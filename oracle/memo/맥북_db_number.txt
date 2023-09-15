@@ -1,0 +1,5 @@
+Enter user-name: sys as sysdba.
+Enter password: 비밀번호
+sqlplus에 접속한 후
+아이디는 sys as sysdba로 입력하고
+비밀번호는 설정한 비밀번호 (없다면 oracle)를 입력해 접속
