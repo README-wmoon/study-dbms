@@ -137,11 +137,11 @@ UNIQUE(UK)
 	빈번한 수정 시 효율적이다. <br>
 	번역 파일 없이 바로 실행.
 
-## SQL문(쿼리문)
+# SQL문(쿼리문)
 - DDL, DML(회사에서 쓰는거), DCL, TCL
 - 스크립트 언어, 데이터베이스와 소통하는 언어.
 
-### DDL(Data Definition Language)
+## DDL(Data Definition Language)
 ```
 1. CREATE : 테이블 생성
   CREATE TABLE [테이블명]([컬럼명][자료형(용량)] [제약조건,...]);
@@ -196,6 +196,167 @@ UNIQUE(UK)
 
 ### 모델링(기획)
 추상적인 주제를 DB의 구조에 맞게 설계하는 것.
+```
+1. 요구사항 분석
+	회원, 주문, 상품 : 3가지를 모두 관리하고 싶습니다.
+
+2. 개념적 설계(개념 모델링)
+	회원		주문		상품
+	회원 번호		주문 번호		상품 번호
+	회원 아이디		주문 날짜		상품 이름
+	회원 비밀번호	회원 번호		상품 가격
+	회원 이름		상품 번호		상품 재고
+	회원 주소		주문 개수
+	회원 이메일
+	회원 생일
+	회원 핸드폰 번호
+
+3. 논리적 설계
+	회원		주문		상품
+
+	회원 번호PK	주문 번호PK	상품 번호PK
+	회원 아이디UK	주문 날짜NN	상품 이름NN
+	회원 비밀번호NN	회원 번호FK	상품 가격NN
+	회원 이름NN	상품 번호FK	상품 재고NN, D(0)
+	회원 주소NN	주문 개수C, D(1)
+	회원 이메일UK
+	회원 생일
+	회원 핸드폰 번호UK
+
+4. 물리적 설계
+	TBL_MEMBER
+	---------------------------------
+	MEMBER_ID: NUMBER PK_MEMBER
+	---------------------------------
+	MEMBER_IDENTIFICATION: VARCHAR2 NOT NULL UNIQUE
+	MEMBER_PASSWORD: VARCHAR2 NOT NULL
+	MEMBER_NAME: VARCHAR2 NOT NULL
+	MEMBER_ADDRESS: VARCHAR2 NOT NULL
+	MEMBER_EMAIL: VARCHAR2 NOT NULL UNIQUE
+	MEMBER_BIRTH: DATE
+	MEMBER_PHONE: VARCHAR2 NOT NULL UNIQUE
+
+5. 구현
+```
+```
+1. 요구사항 분석
+	꽃 테이블과 화분 테이블 2개가 필요하고,
+	꽃을 구매할 때 화분도 같이 구매합니다.
+	꽃은 이름과 색상, 가격이 있고,
+	화분은 제품번호, 색상, 모양이 있습니다.
+	화분은 모든 꽃을 담을 수 없고 알맞은 꽃들을 담아야 합니다.
+
+2. 개념적 설계
+	꽃		화분
+
+
+	꽃 이름		화분 제품번호
+	꽃 색상		화분 색상
+	꽃 가격		화분 모양
+			꽃 이름	
+			꽃 색상
+3. 논리적 설계
+	꽃		화분
+
+
+	꽃 이름PK		화분 제품번호PK
+	꽃 색상PK		화분 색상NN
+	꽃 가격NN		화분 모양NN
+			꽃 이름FKNN	
+			꽃 색상FKNN
+4. 물리적 설계
+	TBL_FLOWER
+	---------------------------------
+	FLOWER_NAME: VARCHAR2 PK_FLOWER
+	FLOWER_COLOR: VARCHAR2 PK_FLOWER
+	---------------------------------
+	FLOWER_PRICE: NUMBER NOT NULL
+
+
+	TBL_POT
+	---------------------------------
+	POT_ID: NUMBER PK_POT
+	---------------------------------
+	POT_COLOR: VARCHAR2 NOT NULL
+	POT_SHAPE: VAHCHAR2 NOT NULL
+	FLOWER_NAME: VARCHAR2 FOREIGN KEY NOT NULL
+	FLOWER_COLOR: VARCHAR2 FOREIGN KEY NOT NULL
+
+5. 구현
+```
+```
+1. 요구사항 분석
+	동물병원을 오픈하려고 합니다.
+	동물의 종과 이름, 나이, 병명이 필요하고
+	보호자의 이름, 나이, 주소, 핸드폰 번호가 필요합니다.
+	한 명의 보호자는 여러 동물을 등록할 수 있어야 합니다.
+
+2. 개념적 설계
+	동물		보호자
+	
+
+	동물 종		보호자 이름
+	동물 이름		보호자 나이
+	동물 나이		보호자 주소
+	동물 병명		보호자 핸드폰번호
+			동물 종
+3. 논리적 설계
+	동물		보호자
+	
+
+	동물 종PK		보호자 이름PK
+	동물 이름NN	보호자 나이NN
+	동물 나이NN	보호자 주소NN
+	동물 병명NN	보호자 핸드폰번호NN
+			동물 종NN FK
+
+4. 물리적 설계
+	TBL_ANIMAL
+	---------------------------------
+	ANIMAL_TYPE: VARCHAR2 PK_ANIMAL
+	---------------------------------
+	ANIMAL_NAME: VARCHAR2 NOT NULL
+	ANIMAL_AGE: NUMBER NOT NULL
+	ANIMAL_DISEASE: VARCHAR2 NOT NULL
+
+
+	TBL_CUSTOMER
+	---------------------------------
+	CUST_NAME: VARCHAR2 PK_CUST
+	---------------------------------
+	CUST_AGE: NUMBER NOT NULL
+	CUST_ADDRESS: VARCHAR2 NOT NULL
+	CUST_PHONE: VARCHAR2 NOT NULL
+	ANIMAL_TYPE: VARCHAR2 FOREIGN KEY NOT NULL	
+
+5. 구현
+```
+
+## DML(Data Manipulation Language)
+```
+1. SELECT : 조회(검색)
+	SELECT [컬럼명, ...]
+	FROM [테이블명]
+	WHERE [조건식]
+
+2. INSERT : 추가
+	1) 컬럼은 전부 다 작성하지 않아도 되고 필요한 컬럼만 작성할 수 있다.
+	INSERT INTO [테이블명] ([컬럼명, ...])
+	VALUES([값, ...]);							// 전체 데이터 다 넣고 싶지 않을때
+	
+	2) 모든 값을 전부 순서대로 작성해야 되며, 컬럼명은 직접 작성하지 않아도 된다.
+	INSERT INTO [테이블명]
+	VALUES([값, ...])
+
+3. UPDATE : 수정
+	UPDATE [테이블명]
+	SET [기존 컬러명] = [값], [기존 컬럼명] = [값], ...
+	WHERE [조건식];
+
+4. DELETE : 삭제
+	DELETE FROM [테이블명]
+	WHERE [조건식];
+```
 
 
 
